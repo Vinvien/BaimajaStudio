@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Baimaja Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="admin-page">
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="Baimaja Studio" class="logo-mark">Baimaja Studio<span>.</span></a>
+    <a href="index.html" class="admin-site-link">Lihat website</a>
+  </div>
+</header>
+
+<main class="admin-shell container">
+  <section class="admin-auth" id="authPanel" aria-labelledby="authTitle">
+    <p class="hero-eyebrow">Studio Management</p>
+    <h1 id="authTitle">Login Admin</h1>
+    <p class="admin-intro" id="authIntro">Masuk untuk mengelola project portfolio.</p>
+    <form id="authForm" class="admin-form">
+      <div class="form-field">
+        <label for="adminUsername">Username</label>
+        <input id="adminUsername" name="username" autocomplete="username" minlength="3" maxlength="64" required>
+      </div>
+      <div class="form-field">
+        <label for="adminPassword">Password</label>
+        <input id="adminPassword" name="password" type="password" autocomplete="current-password" required>
+      </div>
+      <div class="form-field" id="confirmPasswordField" hidden>
+        <label for="adminPasswordConfirm">Konfirmasi password</label>
+        <input id="adminPasswordConfirm" name="passwordConfirm" type="password" autocomplete="new-password">
+      </div>
+      <button class="btn" type="submit" id="authSubmit">Login</button>
+      <p class="admin-form-message" id="authMessage" role="status" aria-live="polite"></p>
+    </form>
+  </section>
+
+  <section class="admin-dashboard" id="adminDashboard" hidden>
+    <div class="admin-dashboard-head">
+      <div>
+        <p class="hero-eyebrow">Studio Management</p>
+        <h1>Kelola Portfolio</h1>
+      </div>
+      <button class="btn btn-outline" id="logoutButton" type="button">Keluar</button>
+    </div>
+
+    <div class="admin-layout">
+      <section class="admin-pane" aria-labelledby="projectFormTitle">
+        <h2 id="projectFormTitle">Tambah project</h2>
+        <form id="projectForm" class="admin-form">
+          <input type="hidden" id="projectId" name="id">
+          <div class="form-field">
+            <label for="projectTitleInput">Judul project</label>
+            <input id="projectTitleInput" name="title" maxlength="120" required>
+          </div>
+          <div class="form-field">
+            <label for="projectCategoryInput">Kategori</label>
+            <select id="projectCategoryInput" name="category" required></select>
+          </div>
+          <div class="form-field">
+            <label for="projectDescriptionInput">Deskripsi</label>
+            <textarea id="projectDescriptionInput" name="description" maxlength="3000" rows="5"></textarea>
+          </div>
+          <div class="form-field">
+            <label for="projectImagesInput">Gambar project</label>
+            <input id="projectImagesInput" name="images" type="file" accept="image/jpeg,image/png,image/gif,image/webp" multiple>
+            <p class="admin-field-hint">Pilih hingga 8 gambar. Saat mengedit, pilih gambar baru untuk mengganti gambar lama; kosongkan untuk mempertahankannya.</p>
+          </div>
+          <div class="admin-image-preview" id="imagePreview" aria-live="polite"></div>
+          <label class="admin-checkbox">
+            <input id="projectFeaturedInput" name="featured" type="checkbox">
+            <span>Tampilkan sebagai project unggulan</span>
+          </label>
+          <div class="admin-form-actions">
+            <button class="btn" type="submit" id="saveProjectButton">Tambah project</button>
+            <button class="btn btn-outline" type="button" id="cancelEditButton" hidden>Batal edit</button>
+          </div>
+          <p class="admin-form-message" id="projectMessage" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="admin-projects" aria-labelledby="projectListTitle">
+        <div class="admin-list-head">
+          <h2 id="projectListTitle">Project tersimpan</h2>
+          <span id="projectCount">0 project</span>
+        </div>
+        <div class="admin-project-list" id="adminProjectList"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/admin.js"></script>
+</body>
+</html>

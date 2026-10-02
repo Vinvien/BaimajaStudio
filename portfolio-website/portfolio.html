@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfolio — Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="assets/img/logo.png">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="Baimaja Studio" class="logo-mark">Baimaja Studio</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Buka menu">
+      <span></span><span></span><span></span>
+    </button>
+    <nav class="main-nav" id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="portfolio.html">Portfolio</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="section container">
+  <div class="section-head">
+    <h2>Portfolio</h2>
+  </div>
+
+  <div class="filter-row" id="filterRow"></div>
+
+  <div class="empty-state" id="portfolioEmpty" style="display:none;">
+    <h3>Belum ada karya di kategori ini</h3>
+    <p>Coba pilih kategori lain.</p>
+  </div>
+
+  <div class="portfolio-grid reveal-group" id="portfolioGrid"></div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a href="index.html" class="logo"><img src="assets/img/logo.png" alt="Studio" class="logo-mark">Baimaja Studio</a>
+    <div class="footer-social">
+      <a href="#">Instagram</a>
+      <a href="#">TikTok</a>
+      <a href="#">WhatsApp</a>
+      <a href="mailto:hello@yourstudio.com">Email</a>
+      <a href="admin.html">Admin</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Baimaja Studio. Semua karya dilindungi hak cipta.</p>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/render-portfolio.js"></script>
+</body>
+</html>

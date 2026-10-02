@@ -1,0 +1,24 @@
+[
+    {
+        "id": "seed-illustration",
+        "title": "Illustration",
+        "slug": "illustration",
+        "category": "illustration",
+        "description": "Koleksi ilustrasi streetwear terinspirasi budaya urban, menggabungkan tipografi bold dan karakter unik dengan gaya modern.",
+        "featured": true,
+        "images": [
+            "assets/img/uploads/0824964ad21719f9598459d7c7c061c8.jpg"
+        ]
+    },
+    {
+        "id": "seed-branding",
+        "title": "Illustration",
+        "slug": "illustration",
+        "category": "illustration",
+        "description": "Eksplorasi desain Koleksi ilustrasi streetwear terinspirasi budaya urban, menggabungkan tipografi bold dan karakter unik dengan gaya modern.",
+        "featured": true,
+        "images": [
+            "assets/img/uploads/55242b56b7fba71066716a7fa2f783df.jpg"
+        ]
+    }
+]
