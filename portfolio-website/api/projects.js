@@ -1,7 +1,11 @@
 export default async function handler(req, res) {
   try {
+    const supabaseUrl = process.env.SUPABASE_URL
+      .replace(/\/+$/, '')
+      .replace(/\/rest\/v1$/, '');
+
     const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/projects?select=*`,
+      `${supabaseUrl}/rest/v1/projects?select=*`,
       {
         headers: {
           apikey: process.env.SUPABASE_PUBLISHABLE_KEY,
