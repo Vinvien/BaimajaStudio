@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   try {
     const response = await fetch(
-      `${process.env.SUPABASE_URL}/rest/v1/Projects?select=*`,
+      `${process.env.SUPABASE_URL}/rest/v1/projects?select=*`,
       {
         headers: {
           apikey: process.env.SUPABASE_PUBLISHABLE_KEY,
