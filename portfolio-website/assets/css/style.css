@@ -810,7 +810,7 @@ button { font-family: inherit; cursor: pointer; }
   .section { padding: 56px 0; }
   .menu-toggle { display: flex; }
 
-   .hero::before {
+  .hero::before {
     top: -250px;
     right: -100px;
     width: 420px;
@@ -818,6 +818,10 @@ button { font-family: inherit; cursor: pointer; }
   }
    
   .hero-social-links { gap: 10px; }
+  .hero-social-links a {
+    justify-content: flex-start;
+    text-align: left;
+  }
   .hero-social-links a { flex: none; padding: 12px 16px; }
 
   .main-nav {
