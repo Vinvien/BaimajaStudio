@@ -806,9 +806,17 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 @media (max-width: 640px) {
+
   .section { padding: 56px 0; }
   .menu-toggle { display: flex; }
 
+   .hero::before {
+    top: -250px;
+    right: -100px;
+    width: 420px;
+    height: 420px;
+  }
+   
   .hero-social-links { gap: 10px; }
   .hero-social-links a { flex: none; padding: 12px 16px; }
 
