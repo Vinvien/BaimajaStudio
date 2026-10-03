@@ -818,10 +818,12 @@ button { font-family: inherit; cursor: pointer; }
   }
    
   .hero-social-links { gap: 10px; }
-  .hero-social-links a {
-    justify-content: flex-start;
-    text-align: left;
-  }
+   .hero-social-links a {
+     flex: none;
+     padding: 12px 16px 12px 10px;
+     justify-content: flex-start;
+     text-align: left;
+   }
   .hero-social-links a { flex: none; padding: 12px 16px; }
 
   .main-nav {
