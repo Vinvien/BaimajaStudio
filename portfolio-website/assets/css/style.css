@@ -238,7 +238,7 @@ button { font-family: inherit; cursor: pointer; }
 .hero-social-links a {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 12px;
   width: 100%;
   min-width: 0;
@@ -824,7 +824,7 @@ button { font-family: inherit; cursor: pointer; }
      justify-content: flex-start;
      text-align: left;
    }
-  .hero-social-links a { flex: none; padding: 12px 16px; }
+
 
   .main-nav {
     position: fixed;
