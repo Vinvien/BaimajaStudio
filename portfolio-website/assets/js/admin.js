@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadManagedProjects() {
-    const data = await requestJSON('api/projects.php', { cache: 'no-store' });
+    const data = await requestJSON('/api/projects', { cache: 'no-store' });
     if (!Array.isArray(data.projects)) throw new Error('Data project tidak valid.');
     projects = data.projects;
     PROJECTS.splice(0, PROJECTS.length, ...projects);
