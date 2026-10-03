@@ -212,38 +212,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  authForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const username = document.getElementById('adminUsername').value.trim();
-    const password = document.getElementById('adminPassword').value;
-    if (setupRequired && password !== confirmInput.value) {
-      showMessage(authMessage, 'Konfirmasi password belum sama.', true);
-      return;
+authForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  const email = document.getElementById('adminUsername').value.trim();
+  const password = document.getElementById('adminPassword').value;
+
+  authSubmit.disabled = true;
+  showMessage(authMessage, 'Memproses login...');
+
+  try {
+    const { data, error } = await supabaseClient.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) throw error;
+
+    if (!data.session) {
+      throw new Error('Session login tidak ditemukan.');
     }
 
-    authSubmit.disabled = true;
-    showMessage(authMessage, 'Memproses...');
-    try {
-      const data = await requestJSON('api/auth.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          action: setupRequired ? 'setup' : 'login',
-          username,
-          password,
-          csrfToken,
-        }),
-      });
-      csrfToken = data.csrfToken;
-      authPanel.hidden = true;
-      dashboard.hidden = false;
-      await loadManagedProjects();
-    } catch (error) {
-      showMessage(authMessage, error.message, true);
-    } finally {
-      authSubmit.disabled = false;
-    }
-  });
+    authPanel.hidden = true;
+    dashboard.hidden = false;
+
+    await loadManagedProjects();
+
+    showMessage(authMessage, '');
+  } catch (error) {
+    showMessage(authMessage, error.message, true);
+  } finally {
+    authSubmit.disabled = false;
+  }
+});
 
   projectForm.addEventListener('submit', async (event) => {
     event.preventDefault();
@@ -293,11 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  requestJSON('api/auth.php')
-    .then(async (data) => {
-      csrfToken = data.csrfToken;
-      setAuthMode(data.setupRequired);
-      if (data.authenticated) {
+  supabaseClient.auth.getSession()
+    .then(async ({ data, error }) => {
+      if (error) throw error;
+  
+      if (data.session) {
         authPanel.hidden = true;
         dashboard.hidden = false;
         await loadManagedProjects();
