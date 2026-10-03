@@ -175,24 +175,50 @@ document.addEventListener('DOMContentLoaded', () => {
       .replace(/^-|-$/g, '');
   }
 
-  async function deleteProject(project) {
-    if (!window.confirm(`Hapus project "${project.title}" beserta gambar yang diunggah?`)) return;
-    const body = new FormData();
-    body.set('action', 'delete');
-    body.set('id', project.id);
-    body.set('csrfToken', csrfToken);
-    try {
-      const data = await requestJSON('api/projects.php', { method: 'POST', body });
-      projects = data.projects;
-      PROJECTS.splice(0, PROJECTS.length, ...projects);
-      renderProjectList();
-      notifyProjectUpdate();
-      showMessage(projectMessage, `Project "${project.title}" sudah dihapus.`);
-    } catch (error) {
-      showMessage(projectMessage, error.message, true);
-    }
+async function deleteProject(project) {
+  if (!window.confirm(`Hapus project "${project.title}" beserta gambar yang diunggah?`)) {
+    return;
   }
 
+  try {
+    showMessage(projectMessage, 'Menghapus project...');
+
+    // Hapus file gambar dari Supabase Storage
+    const imagePaths = (project.images || [])
+      .filter((url) => url.includes('/storage/v1/object/public/uploads/'))
+      .map((url) => {
+        const marker = '/storage/v1/object/public/uploads/';
+        return decodeURIComponent(url.split(marker)[1]);
+      });
+
+    if (imagePaths.length > 0) {
+      const { error: storageError } = await supabaseClient
+        .storage
+        .from('uploads')
+        .remove(imagePaths);
+
+      if (storageError) throw storageError;
+    }
+
+    // Hapus project dari database
+    const { error } = await supabaseClient
+      .from('projects')
+      .delete()
+      .eq('id', project.id);
+
+    if (error) throw error;
+
+    await loadManagedProjects();
+    notifyProjectUpdate();
+
+    showMessage(
+      projectMessage,
+      `Project "${project.title}" sudah dihapus.`
+    );
+  } catch (error) {
+    showMessage(projectMessage, error.message, true);
+  }
+}
   CATEGORIES.forEach((category) => {
     const option = document.createElement('option');
     option.value = category.slug;
