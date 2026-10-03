@@ -319,21 +319,20 @@ projectForm.addEventListener('submit', async (event) => {
 
   document.getElementById('logoutButton').addEventListener('click', async () => {
     try {
-      const data = await requestJSON('api/auth.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'logout', csrfToken }),
-      });
-      csrfToken = data.csrfToken;
+      const { error } = await supabaseClient.auth.signOut();
+  
+      if (error) throw error;
+  
       dashboard.hidden = true;
       authPanel.hidden = false;
       authForm.reset();
+  
       showMessage(authMessage, '');
     } catch (error) {
       showMessage(projectMessage, error.message, true);
     }
   });
-
+  
   supabaseClient.auth.getSession()
     .then(async ({ data, error }) => {
       if (error) throw error;
