@@ -1,4 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const SUPABASE_URL = 'https://yxzutksvvdocjdedcjlk.supabase.co/rest/v1/';
+
+  const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_n-fWq4XZoA8bjuNiMdi-eg_zovs5bMT';
+
+  const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_PUBLISHABLE_KEY
+  );
   const authPanel = document.getElementById('authPanel');
   const authForm = document.getElementById('authForm');
   const authTitle = document.getElementById('authTitle');
