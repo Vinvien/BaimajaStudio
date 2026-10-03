@@ -25,7 +25,7 @@ function getCategoryName(slug) {
 
 async function loadProjects() {
   try {
-    const response = await fetch('api/projects.php', { cache: 'no-store' });
+    const response = await fetch('api/projects', { cache: 'no-store' });
     if (!response.ok) throw new Error('Project tidak dapat dimuat.');
     const data = await response.json();
     if (!Array.isArray(data.projects)) throw new Error('Data project tidak valid.');
@@ -42,7 +42,17 @@ async function loadProjects() {
 
 function projectImageURL(image) {
   const value = String(image || '');
-  const path = value.startsWith('assets/img/') ? value : `assets/img/${value}`;
+
+  // Supabase Storage URL
+  if (value.startsWith('http://') || value.startsWith('https://')) {
+    return value;
+  }
+
+  // Legacy local image path
+  const path = value.startsWith('assets/img/')
+    ? value
+    : `assets/img/${value}`;
+
   return path.split('/').map((part) => encodeURIComponent(part)).join('/');
 }
 
