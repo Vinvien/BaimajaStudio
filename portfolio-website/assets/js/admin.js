@@ -246,34 +246,74 @@ authForm.addEventListener('submit', async (event) => {
   }
 });
 
-  projectForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const id = document.getElementById('projectId').value;
-    const title = document.getElementById('projectTitleInput').value.trim();
-    const body = new FormData(projectForm);
-    body.set('action', 'save');
-    body.set('id', id);
-    body.set('slug', makeSlug(title));
-    body.set('featured', document.getElementById('projectFeaturedInput').checked ? 'true' : 'false');
-    body.set('csrfToken', csrfToken);
+projectForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
 
-    const saveButton = document.getElementById('saveProjectButton');
-    saveButton.disabled = true;
-    showMessage(projectMessage, 'Menyimpan project...');
-    try {
-      const data = await requestJSON('api/projects.php', { method: 'POST', body });
-      projects = data.projects;
-      PROJECTS.splice(0, PROJECTS.length, ...projects);
-      renderProjectList();
-      notifyProjectUpdate();
-      resetProjectForm();
-      showMessage(projectMessage, id ? 'Perubahan project berhasil disimpan.' : 'Project baru berhasil ditambahkan.');
-    } catch (error) {
-      showMessage(projectMessage, error.message, true);
-    } finally {
-      saveButton.disabled = false;
+  const id = document.getElementById('projectId').value;
+  const title = document.getElementById('projectTitleInput').value.trim();
+  const category = document.getElementById('projectCategoryInput').value;
+  const description = document.getElementById('projectDescriptionInput').value.trim();
+  const featured = document.getElementById('projectFeaturedInput').checked;
+  const files = Array.from(imageInput.files || []);
+
+  const saveButton = document.getElementById('saveProjectButton');
+  saveButton.disabled = true;
+  showMessage(projectMessage, 'Menyimpan project...');
+
+  try {
+    const existing = projects.find((project) => project.id === id);
+    const images = existing ? [...(existing.images || [])] : [];
+
+    // Upload gambar baru ke Supabase Storage
+    for (const file of files) {
+      const extension = file.name.split('.').pop().toLowerCase();
+      const path = `${Date.now()}-${crypto.randomUUID()}.${extension}`;
+
+      const { error: uploadError } = await supabaseClient
+        .storage
+        .from('uploads')
+        .upload(path, file, { upsert: false });
+
+      if (uploadError) throw uploadError;
+
+      const { data: publicData } = supabaseClient
+        .storage
+        .from('uploads')
+        .getPublicUrl(path);
+
+      images.push(publicData.publicUrl);
     }
-  });
+
+    const project = {
+      id: id || crypto.randomUUID(),
+      title,
+      slug: makeSlug(title),
+      category,
+      description,
+      featured,
+      images,
+    };
+
+    const { error } = await supabaseClient
+      .from('projects')
+      .upsert(project);
+
+    if (error) throw error;
+
+    await loadManagedProjects();
+    notifyProjectUpdate();
+    resetProjectForm();
+
+    showMessage(
+      projectMessage,
+      id ? 'Perubahan project berhasil disimpan.' : 'Project baru berhasil ditambahkan.'
+    );
+  } catch (error) {
+    showMessage(projectMessage, error.message, true);
+  } finally {
+    saveButton.disabled = false;
+  }
+});
 
   document.getElementById('cancelEditButton').addEventListener('click', resetProjectForm);
 
