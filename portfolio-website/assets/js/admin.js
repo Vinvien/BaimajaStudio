@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const SUPABASE_URL = 'https://yxzutksvvdocjdedcjlk.supabase.co/rest/v1/';
+  const SUPABASE_URL = 'https://yxzutksvvdocjdedcjlk.supabase.co';
 
   const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_n-fWq4XZoA8bjuNiMdi-eg_zovs5bMT';
 
