@@ -1167,10 +1167,10 @@ button { font-family: inherit; cursor: pointer; }
 }
 
 .design-brief .brief-title {
-  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-family: 'Cinzel', 'Times New Roman', serif;
   font-weight: 800;
-  font-size: 1.35rem;
-  letter-spacing: 0.01em;
+  font-size: 1.45rem;
+  letter-spacing: 0.04em;
   line-height: 1.25;
   color: #000;
 }
