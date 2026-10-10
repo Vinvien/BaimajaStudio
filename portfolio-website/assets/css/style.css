@@ -1145,3 +1145,41 @@ button { font-family: inherit; cursor: pointer; }
   font-size: 0.9em;
   line-height: 1.6;
 }
+
+/* Design Brief: kartu kaca + judul lebih besar */
+.design-brief {
+  padding: 24px;
+  border-radius: 24px;
+  /* latar lembut supaya efek kaca terlihat */
+  background:
+    radial-gradient(circle at 12% 18%, rgba(232, 52, 74, 0.20), transparent 45%),
+    radial-gradient(circle at 88% 82%, rgba(255, 140, 60, 0.20), transparent 45%),
+    radial-gradient(circle at 60% 10%, rgba(120, 120, 255, 0.12), transparent 40%),
+    #f7f7f8;
+}
+
+.design-brief .brief-step {
+  background: rgba(255, 255, 255, 0.45);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.75);
+  box-shadow: 0 8px 28px rgba(20, 20, 40, 0.08);
+}
+
+.design-brief .brief-title {
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 1.35rem;
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: #000;
+}
+
+.design-brief .brief-desc {
+  margin-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .design-brief { padding: 14px; border-radius: 18px; }
+  .design-brief .brief-title { font-size: 1.15rem; }
+}
