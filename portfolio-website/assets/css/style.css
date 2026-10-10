@@ -1248,3 +1248,13 @@ button { font-family: inherit; cursor: pointer; }
   .glass-wrap { padding: 14px; border-radius: 18px; }
   .glass-card { padding: 22px 18px; }
 }
+
+
+#about .about-lead {
+  max-width: none !important;
+  width: 100%;
+  text-align: justify;
+}
+#about .about-lead + .about-lead {
+  margin-top: 14px;
+}
