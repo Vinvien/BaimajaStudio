@@ -1125,3 +1125,23 @@ button { font-family: inherit; cursor: pointer; }
     margin-right: 20px;
   }
 }
+
+/* Design Brief: judul + deskripsi di samping angka */
+.brief-step {
+  display: flex;
+  align-items: flex-start;
+}
+.brief-text {
+  flex: 1;
+  min-width: 0;
+}
+.brief-title {
+  margin: 0;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.brief-desc {
+  margin: 6px 0 0;
+  font-size: 0.9em;
+  line-height: 1.6;
+}
